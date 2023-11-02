@@ -23,7 +23,7 @@ public class CategoriaController {
     private static final Logger LOG = LoggerFactory.getLogger(CategoriaController.class);
 
     @PostMapping("/add")
-    public void add(@RequestBody Categoria body){
+    public void add(@RequestBody Categoria body) throws Exception{
         categoriaService.add(body);
         LOG.info("Categoria agregada correctamente.");
     }
