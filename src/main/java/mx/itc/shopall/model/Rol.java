@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -28,23 +27,20 @@ import lombok.ToString;
 @Data
 @ToString
 @Entity
-@Table(name = "usuario")
-public class Usuario implements Serializable{
+@Table(name = "rol")
+public class Rol implements Serializable{
     @Id
-    @Column(name = "id_usuario")
-    private int id_usuario;
-    @Column(name = "nombre")
-    private String nombre;
-    @Column(name = "contrasena")
-    private String contrasena;
-    @Column(name = "email")
-    private String email;
-    @ManyToOne
-    @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
-    private Rol rol;
+    @Column(name = "id_rol")
+    private int id_rol;
+    @Column(name = "descripcion")
+    private String descripcion;
+    @Column(name = "consulta")
+    private int consulta;
+    @Column(name = "escritura")
+    private int escritura;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "metodo_usuario",
-            joinColumns = {@JoinColumn(name = "id_usuario")},
+    @JoinTable(name = "rol_metodo",
+            joinColumns = {@JoinColumn(name = "id_rol")},
             inverseJoinColumns = {@JoinColumn(name = "id_metodo")})
     private List<Metodo> metodos = new ArrayList<Metodo>();
 }
