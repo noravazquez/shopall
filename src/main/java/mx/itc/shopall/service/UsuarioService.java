@@ -25,4 +25,8 @@ public class UsuarioService {
     public void add(Usuario usuario){
         usuarioRepository.save(usuario);
     }
+
+    public Usuario login(String username){
+        return usuarioRepository.login(username);
+    }
 }

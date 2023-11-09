@@ -33,10 +33,10 @@ public class Usuario implements Serializable{
     @Id
     @Column(name = "id_usuario")
     private int id_usuario;
-    @Column(name = "nombre")
-    private String nombre;
-    @Column(name = "contrasena")
-    private String contrasena;
+    @Column(name = "username")
+    private String username;
+    @Column(name = "password")
+    private String password;
     @Column(name = "email")
     private String email;
     @ManyToOne

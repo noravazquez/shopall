@@ -1,16 +1,28 @@
 package mx.itc.shopall.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.itc.shopall.config.JwtResponse;
+import mx.itc.shopall.config.JwtUtils;
+import mx.itc.shopall.domain.UsuarioDTO;
 import mx.itc.shopall.model.Usuario;
 import mx.itc.shopall.service.UsuarioService;
 
@@ -19,6 +31,10 @@ import mx.itc.shopall.service.UsuarioService;
 public class UsuarioContoller {
     @Autowired
     UsuarioService usuarioService;
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    JwtUtils jwtUtils;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioContoller.class);
 
@@ -32,5 +48,22 @@ public class UsuarioContoller {
     public List<Usuario> getAll(){
         LOGGER.info("Usuarios obtenidos correctamente");
         return usuarioService.getAll();
+    }
+
+    @PostMapping("/token")
+    public ResponseEntity<?> authenticateUser(@RequestBody UsuarioDTO usuarioDTO){
+        LOGGER.info("Received credentials - Username: {}", usuarioDTO.getUsername());
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(usuarioDTO.getUsername(), usuarioDTO.getPassword())  
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication, usuarioService.login(usuarioDTO.getUsername()));
+
+        User userDetails = (User) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+
+        return ResponseEntity.ok(new JwtResponse(
+            jwt, userDetails.getUsername(), roles, jwtUtils.getUsuarioData(jwt)
+        ));
     }
 }
