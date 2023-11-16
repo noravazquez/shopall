@@ -3,9 +3,9 @@ package mx.itc.shopall.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import mx.itc.shopall.model.Metodo;
+import mx.itc.shopall.model.Perfil;
 
 @Repository
-public interface MetodoRepository extends CrudRepository<Metodo, Integer>{
+public interface PerfilRepository extends CrudRepository<Perfil, Integer>{
     
 }

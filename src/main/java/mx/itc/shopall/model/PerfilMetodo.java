@@ -24,18 +24,13 @@ import lombok.ToString;
 @ToString
 @Data
 @Entity
-@Table(name = "metodo")
-public class Metodo implements Serializable{
+@Table(name = "perfilmetodos")
+public class PerfilMetodo implements Serializable{
     @Id
-    @Column(name = "id_metodo")
-    private int id_metodo;
-    @Column(name = "descripcion")
-    private String descripcion;
-    @Column(name = "url")
-    private String url;
-    @Column(name = "metodo")
-    private String metodo;
-    @JoinColumn(name = "id_modulo")
+    @Column(name = "id")
+    private int id;
+
+    @JoinColumn(name = "id_metodo")
     @OneToOne(fetch = FetchType.EAGER)
-    private Modulo modulo;
+    private Metodo metodo;
 }

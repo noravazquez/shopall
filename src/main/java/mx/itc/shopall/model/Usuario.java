@@ -1,10 +1,15 @@
 package mx.itc.shopall.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -30,8 +35,16 @@ public class Usuario implements Serializable{
     private String username;
     @Column(name = "password")
     private String password;
-    @Column(name = "email")
-    private String email;
-    @Column(name = "roles")
-    private String roles;
+    
+    @JoinColumn(name = "id_persona")
+    @OneToOne(fetch = FetchType.EAGER)
+    private Persona persona;
+
+    @JoinColumn(name = "id_perfil")
+    @OneToOne(fetch = FetchType.EAGER)
+    private Perfil perfil;
+
+    @JoinColumn(name = "id_perfil", referencedColumnName = "id_perfil")
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<PerfilMetodo> metodos;
 }

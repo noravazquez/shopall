@@ -3,9 +3,9 @@ package mx.itc.shopall.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import mx.itc.shopall.model.Rol;
+import mx.itc.shopall.model.Persona;
 
 @Repository
-public interface RolRepository extends CrudRepository<Rol, Integer>{
+public interface PersonaRepository extends CrudRepository<Persona, Integer>{
     
 }
