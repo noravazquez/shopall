@@ -25,4 +25,19 @@ public class ResenaTiendaService {
     public void add(ResenaTienda resenaTienda){
         resenaTiendaRepository.save(resenaTienda);
     }
+
+    public ResenaTienda getById(int id){
+        return resenaTiendaRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, ResenaTienda resenaTienda){
+        if (resenaTiendaRepository.existsById(id)) {
+            resenaTienda.setId_resena(id);
+            resenaTiendaRepository.save(resenaTienda);
+        }
+    }
+
+    public void delete(int id){
+        resenaTiendaRepository.deleteById(id);
+    }
 }

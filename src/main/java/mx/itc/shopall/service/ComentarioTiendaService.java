@@ -25,4 +25,19 @@ public class ComentarioTiendaService {
     public void add(ComentarioTienda comentarioTienda){
         comentarioTiendaRepository.save(comentarioTienda);
     }
+
+    public ComentarioTienda getById(int id){
+        return comentarioTiendaRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, ComentarioTienda comentarioTienda){
+        if (comentarioTiendaRepository.existsById(id)) {
+            comentarioTienda.setId_comentario(id);
+            comentarioTiendaRepository.save(comentarioTienda);
+        }
+    }
+
+    public void delete(int id){
+        comentarioTiendaRepository.deleteById(id);
+    }
 }

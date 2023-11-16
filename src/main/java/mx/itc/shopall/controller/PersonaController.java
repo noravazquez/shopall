@@ -16,35 +16,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.itc.shopall.model.Categoria;
-import mx.itc.shopall.service.CategoriaService;
+import mx.itc.shopall.model.Persona;
+import mx.itc.shopall.service.PersonaService;
 
 @RestController
-@RequestMapping("/categorias")
-public class CategoriaController {
+@RequestMapping("/personas")
+public class PersonaController {
     @Autowired
-    CategoriaService categoriaService;
+    PersonaService personaService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CategoriaController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonaController.class);
 
     @PostMapping("/add")
-    public void add(@RequestBody Categoria body) throws Exception{
-        categoriaService.add(body);
-        LOGGER.info("Categoria agregada correctamente.");
+    public void add(@RequestBody Persona body) throws Exception{
+        personaService.add(body);
+        LOGGER.info("Persona agregada correctamente.");
     }
 
     @GetMapping("/getAll")
-    public List<Categoria> getAll(){
-        LOGGER.info("Categorias obtenidas correctamente.");
-        return categoriaService.getAll();
+    public List<Persona> getAll(){
+        LOGGER.info("Personas obtenidas correctamente.");
+        return personaService.getAll();
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Categoria> getById(@PathVariable int id){
-        Categoria categoria = categoriaService.getById(id);
-        if (categoria != null) {
+    public ResponseEntity<Persona> getById(@PathVariable int id){
+        Persona persona = personaService.getById(id);
+        if (persona != null) {
             LOGGER.info("Registro encontrado correctamente.");
-            return new ResponseEntity<>(categoria, HttpStatus.OK);
+            return new ResponseEntity<>(persona, HttpStatus.OK);
         }else{
             LOGGER.error("Registro no encontrado correctamente.");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -52,10 +52,10 @@ public class CategoriaController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable int id, @RequestBody Categoria categoria){
-        Categoria oldCategoria = categoriaService.getById(id);
-        if (oldCategoria != null) {
-            categoriaService.update(id, categoria);
+    public ResponseEntity<String> update(@PathVariable int id, @RequestBody Persona persona){
+        Persona oldPersona = personaService.getById(id);
+        if (oldPersona != null) {
+            personaService.update(id, persona);
             LOGGER.info("Registro actualizado correctamente.");
             return new ResponseEntity<>("Registro actualizado correctamente", HttpStatus.OK);
         }else{
@@ -66,9 +66,9 @@ public class CategoriaController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable int id){
-        Categoria categoria = categoriaService.getById(id);
-        if (categoria != null) {
-            categoriaService.delete(id);
+        Persona persona = personaService.getById(id);
+        if (persona != null) {
+            personaService.delete(id);
             LOGGER.info("Registro eliminado correctamente.");
             return new ResponseEntity<>("Registrado eliminado", HttpStatus.OK);
         }else{

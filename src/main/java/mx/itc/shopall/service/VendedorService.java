@@ -25,4 +25,19 @@ public class VendedorService {
     public void add(Vendedor vendedor){
         vendedorRepository.save(vendedor);
     }
+
+    public Vendedor getById(int id){
+        return vendedorRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, Vendedor vendedor){
+        if (vendedorRepository.existsById(id)) {
+            vendedor.setId_vendedor(id);
+            vendedorRepository.save(vendedor);
+        }
+    }
+
+    public void delete(int id){
+        vendedorRepository.deleteById(id);
+    }
 }

@@ -25,4 +25,19 @@ public class DetalleCarritoService {
     public void add(DetalleCarrito detalleCarrito){
         detalleCarritoRepository.save(detalleCarrito);
     }
+
+    public DetalleCarrito getById(int id){
+        return detalleCarritoRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, DetalleCarrito detalleCarrito){
+        if (detalleCarritoRepository.existsById(id)) {
+            detalleCarrito.setId_detalle_carrito(id);
+            detalleCarritoRepository.save(detalleCarrito);
+        }
+    }
+
+    public void delete(int id){
+        detalleCarritoRepository.deleteById(id);
+    }
 }

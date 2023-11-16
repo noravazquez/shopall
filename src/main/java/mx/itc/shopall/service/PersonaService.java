@@ -25,4 +25,19 @@ public class PersonaService {
     public void add(Persona persona){
         personaRepository.save(persona);
     }
+
+    public Persona getById(int id){
+        return personaRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, Persona persona){
+        if (personaRepository.existsById(id)) {
+            persona.setId_persona(id);
+            personaRepository.save(persona);
+        }
+    }
+
+    public void delete(int id){
+        personaRepository.deleteById(id);
+    }
 }

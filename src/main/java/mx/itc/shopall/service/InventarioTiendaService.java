@@ -25,4 +25,19 @@ public class InventarioTiendaService {
     public void add(InventarioTienda inventarioTienda){
         inventarioTiendaRepository.save(inventarioTienda);
     }
+
+    public InventarioTienda getById(int id){
+        return inventarioTiendaRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, InventarioTienda inventarioTienda){
+        if (inventarioTiendaRepository.existsById(id)) {
+            inventarioTienda.setId_inventario(id);
+            inventarioTiendaRepository.save(inventarioTienda);
+        }
+    }
+
+    public void delete(int id){
+        inventarioTiendaRepository.deleteById(id);
+    }
 }

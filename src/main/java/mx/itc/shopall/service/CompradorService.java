@@ -25,4 +25,19 @@ public class CompradorService {
     public void add(Comprador comprador){
         compradorRepository.save(comprador);
     }
+
+    public Comprador getById(int id){
+        return compradorRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, Comprador comprador){
+        if (compradorRepository.existsById(id)) {
+            comprador.setId_comprador(id);
+            compradorRepository.save(comprador);
+        }
+    }
+
+    public void delete(int id){
+        compradorRepository.deleteById(id);
+    }
 }

@@ -25,4 +25,19 @@ public class TransaccionService {
     public void add(Transaccion transaccion){
         transaccionRepository.save(transaccion);
     }
+
+    public Transaccion getById(int id){
+        return transaccionRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, Transaccion transaccion){
+        if (transaccionRepository.existsById(id)) {
+            transaccion.setId_transaccion(id);
+            transaccionRepository.save(transaccion);
+        }
+    }
+
+    public void delete(int id){
+        transaccionRepository.deleteById(id);
+    }
 }

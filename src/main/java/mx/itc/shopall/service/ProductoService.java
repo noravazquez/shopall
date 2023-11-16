@@ -25,4 +25,19 @@ public class ProductoService {
     public void add(Producto producto){
         productoRepository.save(producto);
     }
+
+    public Producto getById(int id){
+        return productoRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, Producto producto){
+        if (productoRepository.existsById(id)) {
+            producto.setId_producto(id);
+            productoRepository.save(producto);
+        }
+    }
+
+    public void delete(int id){
+        productoRepository.deleteById(id);
+    }
 }

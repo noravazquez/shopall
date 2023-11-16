@@ -29,4 +29,19 @@ public class UsuarioService{
     public Usuario login(String username){
         return usuarioRepository.login(username);
     }
+
+    public Usuario getById(int id){
+        return usuarioRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, Usuario usuario){
+        if (usuarioRepository.existsById(id)) {
+            usuario.setId_usuario(id);
+            usuarioRepository.save(usuario);
+        }
+    }
+
+    public void delete(int id){
+        usuarioRepository.deleteById(id);
+    }
 }

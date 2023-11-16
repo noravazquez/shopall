@@ -25,4 +25,19 @@ public class TiendaService {
     public void add(Tienda tienda){
         tiendaRepository.save(tienda);
     }
+
+    public Tienda getById(int id){
+        return tiendaRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, Tienda tienda){
+        if (tiendaRepository.existsById(id)) {
+            tienda.setId_tienda(id);
+            tiendaRepository.save(tienda);
+        }
+    }
+
+    public void delete(int id){
+        tiendaRepository.deleteById(id);
+    }
 }

@@ -25,4 +25,19 @@ public class CategoriaService {
     public void add(Categoria categoria){
         categoriaRepository.save(categoria);
     }
+
+    public Categoria getById(int id){
+        return categoriaRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, Categoria categoria){
+        if (categoriaRepository.existsById(id)) {
+            categoria.setId_categoria(id);
+            categoriaRepository.save(categoria);
+        }
+    }
+
+    public void delete(int id){
+        categoriaRepository.deleteById(id);
+    }
 }

@@ -25,4 +25,19 @@ public class CarritoService {
     public void add(Carrito carrito){
         carritoRepository.save(carrito);
     }
+
+    public Carrito getById(int id){
+        return carritoRepository.findById(id).orElse(null);
+    }
+
+    public void update(int id, Carrito carrito){
+        if (carritoRepository.existsById(id)) {
+            carrito.setId_carrito(id);
+            carritoRepository.save(carrito);
+        }
+    }
+
+    public void delete(int id){
+        carritoRepository.deleteById(id);
+    }
 }
